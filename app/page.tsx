@@ -1,16 +1,17 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import NavLink from '@/components/NavLink';
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <header className="fixed w-full bg-black/25 backdrop-blur-3xl z-50">
+      <header className={`fixed w-full z-50 ${isOpen ? '' : 'bg-black/25 backdrop-blur-3xl'}`}>
         <div className="container mx-auto flex items-center justify-between p-8">
-          <Link href="/" className="text-4xl font-bold text-amber-700">
+          <Link href="/" className="text-4xl font-bold text-white">
             <Image
               src="/logo.webp"
               alt="Strong Me Logo"
@@ -20,6 +21,7 @@ export default function Home() {
             />
             Strong Me
           </Link>
+          {!isOpen && (
           <nav className="space-x-6">
             <NavLink href="/about">ΠΟΙΟΙ ΕΙΜΑΣΤΕ</NavLink>
             <NavLink href="/events">ΔΡΑΣΕΙΣ</NavLink>
@@ -27,16 +29,36 @@ export default function Home() {
             <NavLink href="/support-us">ΥΠΟΣΤΗΡΙΞΕ ΜΑΣ</NavLink>
             <NavLink href="/contact-us">ΕΠΙΚΟΙΝΩΝΙΑ</NavLink>
           </nav>
+          )}
+          <button title='Menu' onClick={() => setIsOpen(!isOpen)} className="flex flex-col justify-between w-8 h-6 focus:outline-none">
+            <span className={`block h-1 bg-amber-700 transform transition duration-300 rounded ${isOpen ? 'rotate-45 translate-y-2.5' : ''}`} />
+            <span className={`block h-1 bg-amber-700 transition-opacity duration-300 rounded ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
+            <span className={`block h-1 bg-amber-700 transform transition duration-300 rounded ${isOpen ? '-rotate-45 -translate-y-2.5' : ''}`} />
+          </button>
         </div>
       </header>
+      {isOpen && (
+        <motion.div
+          initial={{ y: -300, backgroundColor: 'none' }}
+          animate={{ y: 0, backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
+          exit={{ y: -300, backgroundColor: 'none' }}
+          transition={{ duration: 0.3 }}
+          className="fixed top-0 pt-40 left-0 w-full h-fit py-20 backdrop-blur-3xl z-30 flex flex-col items-center justify-center space-y-4"
+        >
+          <NavLink href="/about">ΠΟΙΟΙ ΕΙΜΑΣΤΕ</NavLink>
+          <NavLink href="/events">ΔΡΑΣΕΙΣ</NavLink>
+          <NavLink href="/newsroom">ΕΠΙΚΑΙΡΟΤΗΤΑ</NavLink>
+          <NavLink href="/support-us">ΥΠΟΣΤΗΡΙΞΕ ΜΑΣ</NavLink>
+          <NavLink href="/contact-us">ΕΠΙΚΟΙΝΩΝΙΑ</NavLink>
+        </motion.div>
+      )}
 
       <motion.section
         id="hero"
         className="relative h-screen flex items-center justify-center bg-cover bg-center bg-fixed"
         style={{ backgroundImage: 'url(/hero.jpg)' }}
       >
-        <div className="absolute inset-0 bg-black/75 z-0" />
-
+        <div className="absolute inset-0 bg-black/65 z-0" />
         <div className="relative z-10 text-center text-white px-4">
           <motion.h1
             initial={{ y: -50 }}
@@ -49,7 +71,7 @@ export default function Home() {
           >
             Κάνε τον φόβο σου δύναμη
           </motion.h1>
-          <motion.p
+          <motion.div
             initial={{ y: 25 }}
             animate={{ y: 0 }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
@@ -59,12 +81,8 @@ export default function Home() {
             className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto"
           >
             Είμαστε όλοι μαζί στον αγώνα πρόληψης και καταπολέμησης της
-            <motion.p
-              className='inline-block text-amber-700 font-semibold p-2'
-            >
-              έμφυλης βίας.
-            </motion.p>
-          </motion.p>
+            <div className='inline-block text-amber-700 font-semibold p-2'>έμφυλης βίας.</div>
+          </motion.div>
           <Link
             href="#contact"
             className="inline-block bg-purple-700/5 hover:bg-purple-800/35 backdrop-blur-2xl text-white font-semibold py-3 px-6 rounded-2xl transition duration-300 shadow-lg hover:shadow-xl"
@@ -75,7 +93,7 @@ export default function Home() {
       </motion.section>
 
       <motion.section id="features" className="relative flex py-50 items-center justify-center bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(/hero.jpg)' }}>
-        <div className="absolute inset-0 bg-black/75 z-0" />
+        <div className="absolute inset-0 bg-black/65 z-0" />
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 z-20">
           {[
             { icon: '/prevention.png', title: 'Πρόληψη', desc: 'Συμβουλευτική και υποστήριξη' },
@@ -96,7 +114,7 @@ export default function Home() {
       </motion.section>
 
       <motion.section id="contact" className="relative flex h-screen items-center justify-center bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(/contact-bg.jpg)' }}>
-        <div className="absolute inset-0 bg-black/75 z-0" />
+        <div className="absolute inset-0 bg-black/65 z-0" />
         <div className="container mx-auto max-w-lg text-center z-20">
           <motion.h2
             initial={{ opacity: 0 }}
