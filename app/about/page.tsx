@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import NavLink from '@/components/NavLink';
 
-export default function Home() {
+export default function About() {
   return (
     <>
       <header className="fixed w-full bg-black/25 backdrop-blur-3xl z-50">

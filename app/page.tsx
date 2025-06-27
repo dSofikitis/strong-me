@@ -7,19 +7,17 @@ import NavLink from '@/components/NavLink';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
+  return (<>
       <header className={`fixed w-full z-50 ${isOpen ? '' : 'bg-black/25 backdrop-blur-3xl'}`}>
         <div className="container mx-auto flex items-center justify-between p-8">
           <Link href="/" className="text-4xl font-bold text-white">
             <Image
               src="/logo.webp"
               alt="Strong Me Logo"
-              width={60}
-              height={60}
+              width={180}
+              height={90}
               className="inline-block mr-4"
             />
-            Strong Me
           </Link>
           {!isOpen && (
           <nav className="space-x-6">
@@ -53,11 +51,8 @@ export default function Home() {
         </motion.div>
       )}
 
-      <motion.section
-        id="hero"
-        className="relative h-screen flex items-center justify-center bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: 'url(/hero.jpg)' }}
-      >
+      <motion.section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+        <video src="/intro.mp4" autoPlay muted loop className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/65 z-0" />
         <div className="relative z-10 text-center text-white px-4">
           <motion.h1
@@ -68,9 +63,7 @@ export default function Home() {
             viewport={{ once: true }}
             exit={{ opacity: 0 }}
             className="text-5xl md:text-6xl font-extrabold mb-4"
-          >
-            Κάνε τον φόβο σου δύναμη
-          </motion.h1>
+          >Κάνε τον φόβο σου δύναμη</motion.h1>
           <motion.div
             initial={{ y: 25 }}
             animate={{ y: 0 }}
@@ -81,14 +74,9 @@ export default function Home() {
             className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto"
           >
             Είμαστε όλοι μαζί στον αγώνα πρόληψης και καταπολέμησης της
-            <div className='inline-block text-amber-700 font-semibold p-2'>έμφυλης βίας.</div>
+            <span className="inline-block text-amber-700 font-semibold p-2">έμφυλης βίας</span>
           </motion.div>
-          <Link
-            href="#contact"
-            className="inline-block bg-purple-700/5 hover:bg-purple-800/35 backdrop-blur-2xl text-white font-semibold py-3 px-6 rounded-2xl transition duration-300 shadow-lg hover:shadow-xl"
-          >
-            Επικοινωνία
-          </Link>
+          <Link href="#contact" className="inline-block text-gray-400 bg-purple-700/5 hover:bg-purple-800/35 backdrop-blur-2xl font-semibold py-3 px-6 rounded-2xl transition duration-300 shadow-lg hover:shadow-xl hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">Επικοινωνία</Link>
         </div>
       </motion.section>
 
@@ -116,20 +104,12 @@ export default function Home() {
       <motion.section id="contact" className="relative flex h-screen items-center justify-center bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(/contact-bg.jpg)' }}>
         <div className="absolute inset-0 bg-black/65 z-0" />
         <div className="container mx-auto max-w-lg text-center z-20">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-3xl font-bold mb-6"
-          >
-            Επικοινωνήστε μαζί μας
-          </motion.h2>
+          <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="text-3xl font-bold mb-6">Επικοινωνήστε μαζί μας</motion.h2>
           <form className="space-y-4">
             <input type="text" placeholder="Όνομα" className="w-full border rounded bg-white/25 backdrop-blur-2xl p-3 focus:outline-none focus:ring" />
             <input type="email" placeholder="Email" className="w-full border rounded bg-white/25 backdrop-blur-2xl p-3 focus:outline-none focus:ring" />
             <textarea placeholder="Μήνυμα" className="w-full border rounded bg-white/25 backdrop-blur-2xl p-3 focus:outline-none focus:ring h-32"></textarea>
-            <button type="submit" className="inline-block bg-purple-700/5 hover:bg-purple-800/35 backdrop-blur-2xl text-white font-semibold py-3 px-6 rounded-2xl transition duration-300 shadow-lg hover:shadow-xl">
-              Αποστολή
-            </button>
+            <button type="submit" className="inline-block bg-purple-700/5 hover:bg-purple-800/35 backdrop-blur-2xl text-white font-semibold py-3 px-6 rounded-2xl transition duration-300 shadow-lg hover:shadow-xl">Αποστολή</button>
           </form>
         </div>
       </motion.section>
@@ -156,6 +136,34 @@ export default function Home() {
               <Image src="youtube.svg" alt="YouTube" width={24} height={24} className="filter brightness-0 saturate-100 hover:filter-none transition" />
             </Link>
           </div>
+        </div>
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-1 px-6">
+          Designed and developed by{' '}
+          <Link
+            href="https://dsofikitis.github.io"
+            target="_blank"
+            className="relative inline-block group hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+          >
+            Dimitrios (Dimitris) Sofikitis
+            <span
+              className="
+                absolute
+                left-0
+                bottom-0
+                h-[2px]
+                w-full
+                bg-current
+                rounded-full
+                transform
+                scale-x-0
+                origin-right
+                transition-transform
+                duration-300
+                group-hover:scale-x-100
+                group-hover:origin-left
+              "
+            />
+          </Link>
         </div>
       </footer>
     </>
