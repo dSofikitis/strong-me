@@ -1,56 +1,16 @@
 "use client";
 import React, { useState } from 'react';
+import NavBar from '@/components/NavBar';
+import Footer from '@/components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import NavLink from '@/components/NavLink';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
-  return (<>
-      <header className={`fixed w-full z-50 ${isOpen ? '' : 'bg-black/25 backdrop-blur-3xl'}`}>
-        <div className="container mx-auto flex items-center justify-between p-8">
-          <Link href="/" className="text-4xl font-bold text-white">
-            <Image
-              src="/logo.webp"
-              alt="Strong Me Logo"
-              width={180}
-              height={90}
-              className="inline-block mr-4"
-            />
-          </Link>
-          {!isOpen && (
-          <nav className="space-x-6">
-            <NavLink href="/about">ΠΟΙΟΙ ΕΙΜΑΣΤΕ</NavLink>
-            <NavLink href="/events">ΔΡΑΣΕΙΣ</NavLink>
-            <NavLink href="/newsroom">ΕΠΙΚΑΙΡΟΤΗΤΑ</NavLink>
-            <NavLink href="/support-us">ΥΠΟΣΤΗΡΙΞΕ ΜΑΣ</NavLink>
-            <NavLink href="/contact-us">ΕΠΙΚΟΙΝΩΝΙΑ</NavLink>
-          </nav>
-          )}
-          <button title='Menu' onClick={() => setIsOpen(!isOpen)} className="flex flex-col justify-between w-8 h-6 focus:outline-none">
-            <span className={`block h-1 bg-amber-700 transform transition duration-300 rounded ${isOpen ? 'rotate-45 translate-y-2.5' : ''}`} />
-            <span className={`block h-1 bg-amber-700 transition-opacity duration-300 rounded ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
-            <span className={`block h-1 bg-amber-700 transform transition duration-300 rounded ${isOpen ? '-rotate-45 -translate-y-2.5' : ''}`} />
-          </button>
-        </div>
-      </header>
-      {isOpen && (
-        <motion.div
-          initial={{ y: -300, backgroundColor: 'none' }}
-          animate={{ y: 0, backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
-          exit={{ y: -300, backgroundColor: 'none' }}
-          transition={{ duration: 0.3 }}
-          className="fixed top-0 pt-40 left-0 w-full h-fit py-20 backdrop-blur-3xl z-30 flex flex-col items-center justify-center space-y-4"
-        >
-          <NavLink href="/about">ΠΟΙΟΙ ΕΙΜΑΣΤΕ</NavLink>
-          <NavLink href="/events">ΔΡΑΣΕΙΣ</NavLink>
-          <NavLink href="/newsroom">ΕΠΙΚΑΙΡΟΤΗΤΑ</NavLink>
-          <NavLink href="/support-us">ΥΠΟΣΤΗΡΙΞΕ ΜΑΣ</NavLink>
-          <NavLink href="/contact-us">ΕΠΙΚΟΙΝΩΝΙΑ</NavLink>
-        </motion.div>
-      )}
-
+  return (
+    <>
+      <NavBar isOpen={isOpen} setIsOpen={setIsOpen} />
       <motion.section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
         <video src="/intro.mp4" autoPlay muted loop className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/65 z-0" />
@@ -113,59 +73,7 @@ export default function Home() {
           </form>
         </div>
       </motion.section>
-
-      <footer className="bg-gray-800 py-6 mt-auto">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
-          <div className="text-white text-center md:text-left mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Strong Me. All rights reserved.
-          </div>
-          <div className="flex space-x-6">
-            <Link href="mailto:strongme2021@gmail.com" target="_blank" aria-label="Email">
-              <Image src="email.svg" alt="Email" width={24} height={24} className="filter brightness-0 saturate-100 hover:filter-none transition" />
-            </Link>
-            <Link href="https://www.facebook.com/strongmewoman" target="_blank" aria-label="Facebook">
-              <Image src="facebook.svg" alt="Facebook" width={24} height={24} className="filter brightness-0 saturate-100 hover:filter-none transition" />
-            </Link>
-            <Link href="https://www.instagram.com/strongme_woman/" target="_blank" aria-label="Instagram">
-              <Image src="instagram.svg" alt="Instagram" width={24} height={24} className="filter brightness-0 saturate-100 hover:filter-none transition" />
-            </Link>
-            <Link href="https://www.linkedin.com/company/strongmewoman/" target="_blank" aria-label="LinkedIn">
-              <Image src="linkedin.svg" alt="LinkedIn" width={24} height={24} className="filter brightness-0 saturate-100 hover:filter-none transition" />
-            </Link>
-            <Link href="https://www.youtube.com/@strongme233" target="_blank" aria-label="YouTube">
-              <Image src="youtube.svg" alt="YouTube" width={24} height={24} className="filter brightness-0 saturate-100 hover:filter-none transition" />
-            </Link>
-          </div>
-        </div>
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-1 px-6">
-          Designed and developed by{' '}
-          <Link
-            href="https://dsofikitis.github.io"
-            target="_blank"
-            className="relative inline-block group hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-          >
-            Dimitrios (Dimitris) Sofikitis
-            <span
-              className="
-                absolute
-                left-0
-                bottom-0
-                h-[2px]
-                w-full
-                bg-current
-                rounded-full
-                transform
-                scale-x-0
-                origin-right
-                transition-transform
-                duration-300
-                group-hover:scale-x-100
-                group-hover:origin-left
-              "
-            />
-          </Link>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
